@@ -47,7 +47,6 @@ public abstract class AbstractLoginService {
 					return res;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -58,14 +57,16 @@ public abstract class AbstractLoginService {
 	 * @param pass
 	 * @return
 	 */
-	public boolean register(String name,String pass) {
+	protected boolean register(String name,String pass) {
 		User user = new User(name,pass);
 		boolean usernametaken = false;
 		boolean passNotOkay = false;
 		for(User u : AbstractUserService.showAllUsers()) {
 			usernametaken = u.getUsername().equals(name) ? true : false;
+			if(usernametaken)
+				break;
 		}
-		passNotOkay = pass.length()<4 ? true : false;
+		passNotOkay = pass.length() < 4 ? true : false;
 
 		if(!usernametaken && !passNotOkay) {
 			us.insert(user);

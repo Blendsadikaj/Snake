@@ -3,6 +3,7 @@
  */
 package Abstract;
 
+import java.awt.Graphics;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -10,6 +11,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,7 +20,6 @@ import javax.swing.JTable;
 import Model.GameHistory;
 import Model.User;
 import Service.GameHistoryService;
-import Service.UserService;
 
 /**
  * @author DEll
@@ -29,7 +31,7 @@ public class AbstractHistoryFrame extends JFrame {
 	
 	private GameHistoryService ghs = new GameHistoryService();
 	
-	private String column[]={"Date","Score","Time"}; 
+	private Object column[]={"Date","Score","Time"}; 
 	
 	private JTable jt = new JTable(getHistoryOfUser(),column){
 		 @Override
@@ -76,7 +78,7 @@ public class AbstractHistoryFrame extends JFrame {
 			list[0][0] = loggedUser.getUsername();
 			list[0][1] = loggedUser.getHighestScore() +"";
 			list[0][2] = loggedUser.getAverageScore() + "";
-			list[0][3] = timePlayed();	
+			list[0][3] = timePlayed();
 			list[0][4] = positionInTable()+"";
 		return list;
 	}

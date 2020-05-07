@@ -7,6 +7,8 @@ import java.awt.Container;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -35,11 +37,18 @@ public abstract class AbstractLoginFrame extends JFrame {
 	protected JLabel passwordLabel=new JLabel("PASSWORD");
 	protected JTextField userTextField=new JTextField();
 	protected JPasswordField passwordField=new JPasswordField();
-	protected JButton loginButton=new JButton("LOGIN");
-	protected JButton registerButton=new JButton("REGISTER");
+	Icon loginIcon = new ImageIcon("login.png");
+	Icon registerIcon = new ImageIcon("register.png");
+	Icon animalIcon = new ImageIcon("animals.png");
+	protected JButton loginButton=new JButton(loginIcon);
+	protected JButton registerButton=new JButton(registerIcon);
 	protected JCheckBox showPassword=new JCheckBox("Show Password");
+	protected JLabel icon = new JLabel(animalIcon);
 	
-	protected void openGameFrame() {
+	/**
+	 * Action taken on login button
+	 */
+	protected void login() {
 		String userText;
 		String pwdText;
 		userText = userTextField.getText();
@@ -61,6 +70,10 @@ public abstract class AbstractLoginFrame extends JFrame {
 			e1.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Sets the action on register button
+	 */
 	protected void registerUser() {
 		String userText;
 		String pwdText;
@@ -73,6 +86,9 @@ public abstract class AbstractLoginFrame extends JFrame {
 					   "Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	/**
+	 * Toggles the text of password field
+	 */
 	protected void togglePassword() {
 		if (showPassword.isSelected()) {
 			passwordField.setEchoChar((char) 0);

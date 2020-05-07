@@ -24,6 +24,9 @@ public class Gameplay extends AbstractGamePlay implements KeyListener {
 	private ImageIcon titleImage;
 	private User user;
 	
+	/**
+	 * The constructor of Game
+	 */
 	public Gameplay(User user) {
 		super(user);
 		addKeyListener(this);
@@ -58,25 +61,26 @@ public class Gameplay extends AbstractGamePlay implements KeyListener {
 		g.drawRect(24, 74, 851, 577);
 		
 		//background
-		g.setColor(Color.black);
+		Color color = new Color(75,78,87);
+		g.setColor(color);
 		g.fillRect(25, 75, 850, 575);
 		
-		//draw score
+		//draw time
 		g.setColor(Color.white);
 		g.setFont(new Font("arial",Font.PLAIN,14));
 		g.drawString("Time: " + (int)stopwatch.getTime(),780,50);
 		
-		//draw the length
+		//draw the score
 		g.setColor(Color.white);
 		g.setFont(new Font("arial",Font.PLAIN,14));
 		g.drawString("Scores: " + score,780,30);
 		
-		//draw the length
+		//draw the username
 		g.setColor(Color.white);
 		g.setFont(new Font("arial",Font.PLAIN,14));
 		g.drawString("Username: " + user.getUsername(),50,30);
 		
-		//draw the length
+		//draw the highest score
 		g.setColor(Color.white);
 		g.setFont(new Font("arial",Font.PLAIN,14));
 		g.drawString("Highest Score: " + user.getHighestScore(),50,50);
@@ -84,6 +88,10 @@ public class Gameplay extends AbstractGamePlay implements KeyListener {
 		snake.setRightmouth(new ImageIcon("rightmouth.png"));
 		snake.getRightmouth().paintIcon(this, g, snake.getSnakexlength(0), snake.getSnakeylength(0));
 		
+		/**
+		 * Sets the image icon of the head of the snake 
+		 * and it's tail
+		 */
 		for(int i = 0;i<snake.getLengthofsnake();i++) {
 			if(i==0 && snake.isRight() ){
 				snake.setRightmouth(new ImageIcon("rightmouth.png"));
@@ -109,14 +117,21 @@ public class Gameplay extends AbstractGamePlay implements KeyListener {
 		
 		enemyImage = new ImageIcon("enemy.png");
 		
+		/**
+		 * Checks if snake has eaten the enemy
+		 */
 		if((enemyxpos[xpos]==snake.getSnakexlength(0)) && enemyypos[ypos] == snake.getSnakeylength(0)) {
 			snake.setLengthofsnake(snake.getLengthofsnake()+1);
 			generateNewPositionForEnemy();
 			score++;
 		}
 		
+		//Paints the enemy
 		enemyImage.paintIcon(this, g, enemyxpos[xpos], enemyypos[ypos]);
 		
+		/**
+		 * Checks if snake has eaten itself
+		 */
 		for(int i = 1;i<snake.getLengthofsnake();i++) {
 			if(snake.getSnakexlength(i) == snake.getSnakexlength(0) && snake.getSnakeylength(i)== snake.getSnakeylength(0)) {
 				snake.setLeft(false);
@@ -124,6 +139,7 @@ public class Gameplay extends AbstractGamePlay implements KeyListener {
 				snake.setUp(false);
 				snake.setDown(false);
 				lost = true;
+				
 				g.setColor(Color.white);
 				g.setFont(new Font("arial",Font.BOLD,50));
 				g.drawString("Game Over",300,300);
@@ -132,17 +148,19 @@ public class Gameplay extends AbstractGamePlay implements KeyListener {
 				g.drawString("Space to RESTART",300,340);
 				addToHistory();
 				dummyVariable = 0;
-				start = false;
+				
 			}			
 		}		
 		g.dispose();
 	}	
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_SPACE && lost) {
 			score = 0;
 			snake.setLengthofsnake(3);
 			lost = false;
+			start = false;
 			repaint();
 		}
 		
@@ -156,9 +174,8 @@ public class Gameplay extends AbstractGamePlay implements KeyListener {
 			snake.setUp(false);
 			snake.setDown(false);
 			setStart();
-			//repaint();
 		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT && !lost && start) {
+		if(e.getKeyCode() == KeyEvent.VK_LEFT && !lost) {
 			if(!snake.isRight()) {
 				snake.setLeft(true);
 			}else {

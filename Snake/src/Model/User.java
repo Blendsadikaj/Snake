@@ -74,7 +74,8 @@ public class User extends AbstractUser{
 	
 	
 	/**
-	 *
+	 * This method is used to retrieve the information
+	 * about the object
 	 */
 	@Override
 	public String toString() {

@@ -110,6 +110,10 @@ public class Stopwatch {
         }
     }
     
+    /**
+	 * Get the time and converts
+	 * it to seconds
+	 */
     public double getTime() {
 		long time = pause();
 		resume();

@@ -38,16 +38,24 @@ public class AbstractGamePlay extends JPanel{
 		generatePossiblePositions();
 	}
 
+	/**
+	 * If snake eats itself this method is called
+	 * to insert this game into database.
+	 */
 	protected int dummyVariable = 0;
 	protected void addToHistory() {
 		if(dummyVariable == 1) {
 			stopwatch.stop();
 			GameHistory gh = new GameHistory(this.user,score,(int)stopwatch.elapsed());
 			ghs.insert(gh);
+			user.getUs().update(user);
 			AbstractLoginFrame.gameframe.updateBestPlayers();
 		}
 	}
 	
+	/**
+	 * Generates the new position of the enemy
+	 */
 	protected void generateNewPositionForEnemy() {
 		int x = random.nextInt(34);
 		int y = random.nextInt(23);
@@ -67,6 +75,9 @@ public class AbstractGamePlay extends JPanel{
 		}	
 	}
 	
+	/**
+	 * Ignites the start of the game
+	 */
 	protected void setStart() {
 		if(dummyVariable == 0) {
 			stopwatch.start();
@@ -75,6 +86,10 @@ public class AbstractGamePlay extends JPanel{
 		}
 	}
 	
+	/**
+	 * Generates the possible positions
+	 * of the enemy
+	 */
 	protected void generatePossiblePositions() {
 		for(int i = 0;i<34;i++) {
 			enemyxpos[i] = (i+1)*25;

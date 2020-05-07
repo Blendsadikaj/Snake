@@ -25,8 +25,8 @@ public class Snake implements ActionListener {
 	private boolean right = false;
 	private boolean up = false;
 	private boolean down = false;
-	JPanel panel;
-	Timer timer = new Timer(100,this);
+	private JPanel panel;
+	private Timer timer = new Timer(100,this);
 	private ImageIcon leftmouth;
 	private ImageIcon rightmouth;
 	private ImageIcon upmouth;
@@ -37,6 +37,11 @@ public class Snake implements ActionListener {
 		this.panel = panel;
 	}
 	
+	
+	/**
+	 * actionPerformed method is used to specify the
+	 * positions of the body of snake
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		timer.start();
@@ -73,7 +78,6 @@ public class Snake implements ActionListener {
 				}
 			}
 				panel.repaint();
-
 		}
 		if(isDown()) {
 			

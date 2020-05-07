@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,7 +23,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import Model.User;
-import Service.UserService;
 import Views.HistoryFrame;
 import Views.LoginFrame;
 
@@ -31,7 +32,7 @@ import Views.LoginFrame;
  */
 public abstract class AbstractGameFrame extends JFrame {
 
-	User loggedUser;
+	protected User loggedUser;
 
 	String column[]={"Username","Highest Score","Average Score"};   
 
@@ -40,10 +41,12 @@ public abstract class AbstractGameFrame extends JFrame {
 	protected Container container=getContentPane();
 	protected JButton playButton=new JButton("Play");
 	protected JButton showHistory=new JButton("Show History");
-	protected JButton logout = new JButton("Logut");
+	Icon icon = new ImageIcon("logout.png");
+	protected JButton logout = new JButton(icon);
 	protected String[] option = { "Highest Score","Average Score"};  
 	protected JComboBox<Object> box = new JComboBox<Object>(option); 
 	protected JLabel sortBy = new JLabel("Sort By:");
+	protected JLabel medals = new JLabel();
 	protected JTable jt = new JTable(getBestPlayers(),column){
 		@Override
 		public boolean editCellAt(int row, int column, java.util.EventObject e) {
@@ -59,9 +62,14 @@ public abstract class AbstractGameFrame extends JFrame {
 		borderLayoutPanel.setBorder(BorderFactory
 		        .createTitledBorder("Leaderboard"));
 		sp.setPreferredSize(new Dimension(370,150));
-		 borderLayoutPanel.add(sp, BorderLayout.NORTH);
+		borderLayoutPanel.add(sp, BorderLayout.NORTH);
+		logout.setText("Logout");
 	}
 
+	/**
+	 * Transforms data from List to a two dimensional array
+	 * for the jtable
+	 */
 	protected String[][] getBestPlayers() {
 		String[][] data;
 		List<User> users;
@@ -86,10 +94,16 @@ public abstract class AbstractGameFrame extends JFrame {
 		return data;
 	}
 
+	/**
+	 * Action taken on play button
+	 */
 	protected void play() {
 		this.loggedUser.play();
 	}
 
+	/**
+	 * Action taken on show history button
+	 */
 	protected void showHistory() {
 		try {
 			User u = loggedUser;
@@ -100,6 +114,9 @@ public abstract class AbstractGameFrame extends JFrame {
 		}
 	}
 
+	/**
+	 * Action taken on logout
+	 */
 	protected void logout() {
 		setVisible(false);
 		dispose();

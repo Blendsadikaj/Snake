@@ -41,7 +41,7 @@ public class LoginService extends AbstractLoginService implements LoginInterface
 	/**
 	 * @param username
 	 * @param password
-	 * Register method is used to register a user.
+	 * @return wether the user was able to register.
 	 */
 	@Override
 	public boolean Register(String username,String password) {
