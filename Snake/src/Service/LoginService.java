@@ -28,10 +28,14 @@ public class LoginService extends AbstractLoginService implements LoginInterface
 	 * Login method is used to log into user's account
 	 */
 	@Override
-	public User Login(String username,String password) throws SQLException{
+	public User Login(String username,String password){
 		ResultSet res = verifyLogin(username, password);
 		if(res != null) {
-			loggeduser = new User(res.getInt(1),res.getString(2));
+			try {
+				loggeduser = new User(res.getInt(1),res.getString(2));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			return loggeduser;
 		}
 		else

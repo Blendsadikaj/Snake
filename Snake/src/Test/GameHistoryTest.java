@@ -1,11 +1,14 @@
-/**
- * 
- */
 package Test;
 
-import Database.Database;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.sql.Timestamp;
+import java.util.Date;
+
+import org.junit.Test;
+
 import Model.GameHistory;
-import Model.User;
 
 /**
  * @author DEll
@@ -15,22 +18,14 @@ public class GameHistoryTest {
 	
 	/**
 	 * Test the methods of GameHistory
-	 * @param gh
-	 * @return true or false based on the test
 	 */
-	private static boolean testGH(GameHistory gh) {
-		if(gh.getScore()==18 && gh.getTime()==17 && gh.getUserId()==14)
-			return true;
-		return false;
-	}
-	
-	public static void main(String[] args) {
-		new Database();
-		GameHistory gh = new GameHistory(new User(40,"Blend"),28,48);
-		gh.setUserId(14);
-		gh.setTime(17);
-		gh.setScore(18);
-		System.out.println(testGH(gh)+": must be true");
+	@Test
+	public void testModel() {
+		GameHistory gh = new GameHistory(new Timestamp(new Date().getTime()),50,20,12);
+		assertTrue(gh.getTime()==12);
+		assertTrue(gh.getScore()==20);
+		assertTrue(gh.getUserId()==50);
+		assertTrue(gh.getDate().getMinutes() == (new Timestamp(new Date().getTime()).getMinutes()));
 	}
 
 }

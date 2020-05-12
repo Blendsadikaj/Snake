@@ -1,11 +1,12 @@
-/**
- * 
- */
 package Test;
 
-import java.sql.SQLException;
+import static org.junit.Assert.assertTrue;
 
-import Abstract.AbstractUserService;
+import java.util.stream.Collectors;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import Database.Database;
 import Model.User;
 import Service.UserService;
@@ -15,46 +16,64 @@ import Service.UserService;
  *
  */
 public class UserServiceTest {
+	
 	static UserService service = new UserService();
+	
+	@BeforeClass
+	public static void init() {
+		new Database();
+	}
+	
 	
 	/**
 	 * Tests the ability of the UserService
 	 * to insert data into database.
 	 * @param a
-	 * @return true or false based on the test
 	 */
-	private static boolean testInsert(User a) {
-		service.insert(a);
-		for(User u : AbstractUserService.showAllUsers()) {
-			if(u.getUsername().equals("Sadikaj123"))
-				return true;
-		}
-		return false;
+	@Test
+	public void testInsert() {
+		User a = new User("Blend","123123");
+		assertTrue(service.insert(a));
+		service.delete(service.showAllUsers().stream()
+				.filter(o -> o.getUsername().equals(a.getUsername()) && o.getId() != 40)
+				.collect(Collectors.toList()).get(0).getId());
 	}
 	
 	/**
 	 * Tests the ability of the UserService to update
 	 * a user.
-	 * @param u
-	 * @return true or false based on the test
 	 */
-	private static boolean testUpdate(User u) {
+	@Test
+	public void testUpdate() {
+		User u = new User(50,"123123");
 		service.update(u);
-		for(User user : AbstractUserService.showAllUsers()) {
-			if(user.getUsername().equals(u.getUsername()))
-				if(u.getHighestScore() != 30 && u.getAverageScore() != 40) 
-					return true;				
-		}
-		return false;
+		assertTrue(UserService.showAllUsers().
+				stream().anyMatch(o -> o.getHighestScore() == u.getHighestScore()));
+		assertTrue(UserService.showAllUsers().
+				stream().anyMatch(o -> o.getAverageScore() == u.getAverageScore()));
 	}
 	
-	public static void main(String[] args) throws SQLException {
-		new Database();
-		System.out.println(testInsert(new User("Sadikaj123","123123"))+": must be true");
-		User u = new User(42,"Sadikaj2");
-		u.setHighestScore(30);
-		u.setAverageScore(40);
-		System.out.println(testUpdate(u)+": must be true");
+	/**
+	 * Tests the ability of the UserService to delete
+	 * a user.
+	 */
+	@Test
+	public void testDelete() {
+		User u = new User("Dummy","123123");
+		service.insert(u);
+		User a = service.findUser(u.getUsername());
+		service.delete(a.getId());
+		assertTrue(!UserService.showAllUsers().contains(u));
 	}
-
+	
+	/**
+	 * Tests the ability of the UserService to find
+	 * a user.
+	 */
+	@Test
+	public void testFind() {
+		String username = "Blend";
+		User u = service.findUser(username);
+		assertTrue(u.getUsername().equals(username));
+	}
 }

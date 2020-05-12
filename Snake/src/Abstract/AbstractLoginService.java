@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import Database.Database;
+import Database.Helper;
 import Model.User;
 import Service.UserService;
 
@@ -36,12 +37,12 @@ public abstract class AbstractLoginService {
 	/**
 	 * @param username
 	 * @param password
-	 * @return
+	 * @return the ResultSet object
 	 */
 	public ResultSet verifyLogin(String username,String password) {
 		ResultSet res;
 		try {
-			res = stmt.executeQuery("SELECT * FROM users WHERE name like '"+username+"'");
+			res = stmt.executeQuery(Helper.getUserByName+username+"'");
 			while(res.next()) {
 				if(res.getString(3).equals(passwordEncryption(password)))
 					return res;
@@ -55,7 +56,8 @@ public abstract class AbstractLoginService {
 	/**
 	 * @param name
 	 * @param pass
-	 * @return
+	 * @return true or false wether the user 
+	 * was able to regiser
 	 */
 	protected boolean register(String name,String pass) {
 		User user = new User(name,pass);
@@ -78,7 +80,7 @@ public abstract class AbstractLoginService {
 	
 	/**
 	 * @param password
-	 * @return
+	 * @return the encrypted password
 	 */
 	public static String passwordEncryption(String password) {
 		String generatedPassword = "";
@@ -92,7 +94,7 @@ public abstract class AbstractLoginService {
 	            //This bytes[] has bytes in decimal format;
 	            //Convert it to hexadecimal format
 	            StringBuilder sb = new StringBuilder();
-	            for(int i=0; i< bytes.length ;i++)
+	            for(int i=0; i < bytes.length ;i++)
 	            {
 	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
 	            }

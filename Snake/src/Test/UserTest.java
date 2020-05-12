@@ -3,7 +3,10 @@
  */
 package Test;
 
-import java.sql.SQLException;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import Database.Database;
 import Model.User;
@@ -14,22 +17,21 @@ import Model.User;
  */
 public class UserTest {
 	
+	@BeforeClass
+	public static void init() {
+		new Database();
+	}
+	
 	/**
 	 * Tests the methods of User
 	 * @param u
 	 * @return true or false based on the test
 	 */
-	private static boolean testUser(User u) {
-		if(u.getId()==15 && u.getAverageScore() == 12 && u.getHighestScore() == 12)
-			return true;
-		return false;
+	@Test
+	public void testUser() {
+		User u = new User(50,"Blend");
+		assertTrue(u.getId() == 50);
+		assertTrue(u.getUsername().equals("Blend"));
 	}
 	
-	public static void main(String[] args) throws SQLException {
-		new Database();
-		User u = new User(15,"Blend");
-		u.setAverageScore(12);
-		u.setHighestScore(12);
-		System.out.println(testUser(u)+": must be true");
-	}
 }

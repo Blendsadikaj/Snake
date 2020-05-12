@@ -18,5 +18,5 @@ public interface BaseInterface<T extends Object> {
 	 * @throws SQLException
 	 * Method wich inserts @param<T> into database
 	 */
-	public void insert(T obj) throws SQLException;
+	public boolean insert(T obj) throws SQLException;
 }

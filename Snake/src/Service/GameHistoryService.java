@@ -1,4 +1,5 @@
 package Service;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,18 +28,29 @@ public class GameHistoryService implements GameHistoryInterface<GameHistory> {
 	 *into database
 	 */
 	@Override
-	public void insert(GameHistory gh) {
+	public boolean insert(GameHistory gh) {
 		PreparedStatement stmt;
-		try {
-			stmt = Database.con.prepareStatement(Helper.insertToSnakes);
-			stmt.setTimestamp(1,new java.sql.Timestamp(System.currentTimeMillis()));
-			stmt.setLong(2, gh.getUserId());
-			stmt.setInt(3, gh.getScore());
-			stmt.setInt(4, gh.getTime());
-			stmt.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(validate(gh)) {
+			try {
+				stmt = Database.con.prepareStatement(Helper.insertToSnakes);
+				stmt.setTimestamp(1,new java.sql.Timestamp(System.currentTimeMillis()));
+				stmt.setLong(2, gh.getUserId());
+				stmt.setInt(3, gh.getScore());
+				stmt.setInt(4, gh.getTime());
+				stmt.execute();
+				return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return false;
+		
+	}
+	
+	private boolean validate(GameHistory gh) {
+		if(gh.getScore() >= 0 && gh.getTime() > 0)
+			return true;
+		return false;
 	}
 
 	/**

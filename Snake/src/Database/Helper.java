@@ -21,6 +21,12 @@ public class Helper {
 	//The query used to get all users
 	public static final String getAllUsers = "SELECT * FROM users";
 	
+	//The query used to get user by name
+	public static final String getUserByName = "SELECT * FROM users WHERE name like '";
+	
+	//The query used to delete a user
+	public static final String deleteUser = "delete from users where id = ?";
+	
 	//The query used to insert a user
 	public static final String insertUser = "INSERT INTO `snake`.`users` (`name`, `password`,`highest_score`,`average_score`) VALUES (?, ?, ?, ?);";
 
@@ -35,4 +41,6 @@ public class Helper {
 	
 	//The message of a failed registration
 	public static final String notRegistered = "Username taken or password less than 4 characters";
+	
+	
 }

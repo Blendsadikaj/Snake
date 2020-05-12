@@ -15,7 +15,6 @@ import Service.LoginService;
 
 public class LoginFrame extends AbstractLoginFrame {
 	
-	
 	/**
 	 * Login's Frame constructor
 	 */

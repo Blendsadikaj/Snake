@@ -37,6 +37,5 @@ public abstract class AbstractUserService {
 			e.printStackTrace();
 		}
 		return null;
-		
 	}	
 }

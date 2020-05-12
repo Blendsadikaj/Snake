@@ -1,6 +1,7 @@
 package Service;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 import Abstract.AbstractLoginService;
 import Abstract.AbstractUserService;
@@ -19,7 +20,7 @@ public class UserService extends AbstractUserService implements UserServiceInter
 	 * a user into database.
 	 */
 	@Override
-	public void insert(User obj) {
+	public boolean insert(User obj) {
 		PreparedStatement stmt;
 		try {
 			stmt = Database.con.prepareStatement(Helper.insertUser);
@@ -29,8 +30,10 @@ public class UserService extends AbstractUserService implements UserServiceInter
 			stmt.setInt(4, 0);
 			stmt.execute();
 			stmt.close();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -51,5 +54,30 @@ public class UserService extends AbstractUserService implements UserServiceInter
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * delete method is used to delete
+	 * a user.
+	 */
+	@Override
+	public boolean delete(Long id) {
+	    PreparedStatement preparedStmt;
+		try {
+			preparedStmt = Database.con.prepareStatement(Helper.deleteUser);
+			preparedStmt.setFloat(1, id);
+			preparedStmt.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}   
+	}
+	
+	public User findUser(String username) {
+		return showAllUsers().stream().
+				filter(o -> o.getUsername()
+				.equals(username))
+				.collect(Collectors.toList()).get(0);
 	}
 }

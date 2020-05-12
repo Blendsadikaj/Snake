@@ -20,7 +20,7 @@ public interface LoginInterface {
 	 * @throws SQLException
 	 */
 	public User Login(String username,String password) throws SQLException;
-	
+
 	/**
 	 * @param username
 	 * @param password

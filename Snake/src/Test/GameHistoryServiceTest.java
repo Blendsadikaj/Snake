@@ -3,12 +3,16 @@
  */
 package Test;
 
-import java.sql.SQLException;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import Database.Database;
 import Model.GameHistory;
 import Model.User;
 import Service.GameHistoryService;
+import Service.LoginService;
 
 /**
  * @author DEll
@@ -17,27 +21,36 @@ import Service.GameHistoryService;
 public class GameHistoryServiceTest {
 	
 	static GameHistoryService service = new GameHistoryService();
+	private LoginService loginService = new LoginService();
+	
+	@BeforeClass
+	public static void init() {
+		new Database();
+	}
+	
+	private User loggedUser() {
+		return loginService.Login("Sadikaj123", "123123");
+	}
 	
 	/**
 	 * Tests the ability of the GameHistoryService
 	 * to insert into database.
-	 * @param ghs
-	 * @param u
-	 * @return
 	 */
-	private static boolean testInsert(GameHistory ghs,User u) {
-		service.insert(ghs);
-		for(GameHistory a : service.getHistoryByUser(u)) {
-			if(a.getUserId()==u.getId())
-				return true;
-		}
-		return false;
+	@Test
+	public void testInsert() {
+		GameHistory ghs = new GameHistory(loggedUser(), 20, 12);
+		assertTrue(service.insert(ghs));
+		ghs.setScore(-10);
+		assertTrue(!service.insert(ghs));
 	}
 	
-	
-	public static void main(String[] args) throws SQLException {
-		new Database();
-		User u = new User(50,"Sadikaj123");
-		System.out.println(testInsert(new GameHistory(u,12,28),u)+": must be true");
+	/**
+	 * Tests the ability of the GameHistoryService
+	 * to retrieve history by user.
+	 */
+	@Test
+	public void testGetHistoryByUser() {
+		assertTrue(service.getHistoryByUser(loggedUser())
+				.stream().allMatch(o -> o.getUserId() == loggedUser().getId()));
 	}
 }
