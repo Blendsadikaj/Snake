@@ -46,7 +46,7 @@ public class GameFrame extends AbstractGameFrame {
 	/**
 	 * Adds the components to pane
 	 */
-	public void addComponentsToContainer()
+	private void addComponentsToContainer()
 	{
 		container.add(medals);
 		container.add(showHistory);
@@ -63,14 +63,11 @@ public class GameFrame extends AbstractGameFrame {
 	 * of best players
 	 */
 	private void setMedal() {
-		System.out.println("asd");
 		for(int i = 0;i<getBestPlayers().length;i++) {
-			System.out.println(i);
 			if(getBestPlayers()[i][0].equals(loggedUser.getUsername())) {
 				switch(i) {
 					case 0:
 						medals.setIcon(new ImageIcon("gold-medal.png"));
-						System.out.println("adssd");
 						break;
 					case 1:
 						medals.setIcon(new ImageIcon("second-place.png"));
@@ -104,7 +101,5 @@ public class GameFrame extends AbstractGameFrame {
 			jt.setValueAt(data[i][2], i, 2);
 		}
 	}
-	
-	
 }
 

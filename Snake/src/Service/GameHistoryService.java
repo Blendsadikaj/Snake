@@ -1,5 +1,4 @@
 package Service;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,9 +47,7 @@ public class GameHistoryService implements GameHistoryInterface<GameHistory> {
 	}
 	
 	private boolean validate(GameHistory gh) {
-		if(gh.getScore() >= 0 && gh.getTime() > 0)
-			return true;
-		return false;
+		return gh.getScore() >= 0 && gh.getTime() > 0 ?  true : false;
 	}
 
 	/**

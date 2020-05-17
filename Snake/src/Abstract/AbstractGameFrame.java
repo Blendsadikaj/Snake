@@ -36,8 +36,6 @@ public abstract class AbstractGameFrame extends JFrame {
 
 	String column[]={"Username","Highest Score","Average Score"};   
 
-	public static HistoryFrame hs;
-
 	protected Container container=getContentPane();
 	protected JButton playButton=new JButton("Play");
 	protected JButton showHistory=new JButton("Show History");
@@ -108,7 +106,7 @@ public abstract class AbstractGameFrame extends JFrame {
 		try {
 			User u = loggedUser;
 			HistoryFrame.setUser(u);
-			hs = new HistoryFrame();
+			new HistoryFrame();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}

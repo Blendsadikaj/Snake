@@ -20,7 +20,7 @@ import Service.UserService;
  */
 public abstract class AbstractLoginService {
 	
-	static Statement stmt;
+	protected static Statement stmt;
 	protected UserService us;
 	
 

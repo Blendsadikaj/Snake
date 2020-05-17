@@ -58,6 +58,12 @@ public class AbstractHistoryFrame extends JFrame {
 	public AbstractHistoryFrame() throws SQLException {
 	}
 	
+	/**
+	 * getHistory method is used to transform
+	 * data of the history from List type to
+	 * 2 dimensional array.
+	 * @return two dimensional array
+	 */
 	private String[][] getHistoryOfUser() throws SQLException{
 		List<GameHistory> data = ghs.getHistoryByUser(loggedUser);
 		Collections.reverse(data);
@@ -73,6 +79,12 @@ public class AbstractHistoryFrame extends JFrame {
 		return list;
 	}
 	
+	/**
+	 * getDatasOfUser method is used to transform
+	 * data of the user from List type to
+	 * 2 dimensional array.
+	 * @return two dimensional array
+	 */
 	private String[][] getDatasOfUser() throws SQLException{
 		String[][] list = new String[1][5];
 			list[0][0] = loggedUser.getUsername();
@@ -85,17 +97,14 @@ public class AbstractHistoryFrame extends JFrame {
 	
 	private String timePlayed() {
 		long time = getTimePlayed();
-		if(time < 60)
-			return time+"s";
-		else
-			return time/60+"m "+time%60+"s";
+		return time < 60 ? (time+"s") : (time/60+"m "+time%60+"s");
 	}
 	
 	private long getTimePlayed() {
 		return ghs.getHistoryByUser(loggedUser).stream().mapToLong(o -> o.getTime()).sum();
 	}
 	
-	private long positionInTable() throws SQLException {
+	private long positionInTable(){
 			return AbstractUserService.showAllUsers().stream()
 			.sorted(Comparator.comparingInt(User::getHighestScore).reversed())
 			.mapToLong(o -> o.getId())

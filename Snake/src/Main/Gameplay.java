@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
-import Abstract.AbstractGamePlay;
+import Abstract.AbstractGameplay;
 import Model.User;
 
 /**
@@ -16,7 +16,7 @@ import Model.User;
  * @author DEll
  *
  */
-public class Gameplay extends AbstractGamePlay implements KeyListener {
+public class Gameplay extends AbstractGameplay implements KeyListener {
 	
 	private boolean lost = false;	
 	private ImageIcon snakeImage;

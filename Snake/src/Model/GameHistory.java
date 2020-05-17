@@ -11,8 +11,6 @@ import Service.GameHistoryService;
  */
 public class GameHistory extends AbstractGameHistory {
 	
-	public GameHistoryService ghs = new GameHistoryService();
-	
 	/**
 	 * @param date
 	 * @param userId
@@ -33,11 +31,5 @@ public class GameHistory extends AbstractGameHistory {
 	public GameHistory(User user,int score,int time) {
 		super(new Timestamp(System.currentTimeMillis()), user.getId(),score,time);	
 		user.getUs().update(user);
-	}
-	
-	@Override
-	public String toString() {
-		return "Date of game: " + date + "userId: " + userId+" with score:"+score;
-	}
-	
+	}	
 }

@@ -1,5 +1,7 @@
 package Interface;
 
+import Model.User;
+
 /**
  * @author DEll
  *
@@ -18,4 +20,10 @@ public interface UserServiceInterface<T extends Object> extends BaseInterface<T>
 	 * Deletes user.
 	 */
 	public boolean delete(Long id);
+	
+	/**
+	 * @param username of the user
+	 * Finds user by username.
+	 */
+	public User findUser(String username);
 }

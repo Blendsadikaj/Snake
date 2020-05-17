@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 
 /**
  * @author DEll
- *
  */
 public class Snake implements ActionListener {
 	

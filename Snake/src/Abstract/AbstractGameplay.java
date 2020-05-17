@@ -18,9 +18,9 @@ import Views.LoginFrame;
  * @author DEll
  *
  */
-public class AbstractGamePlay extends JPanel{
+public class AbstractGameplay extends JPanel{
 	
-	GameHistoryService ghs = new GameHistoryService();
+	protected GameHistoryService ghs = new GameHistoryService();
 	protected Random random = new Random();
 	protected Stopwatch stopwatch = new Stopwatch();
 	protected int score = 0;
@@ -33,7 +33,7 @@ public class AbstractGamePlay extends JPanel{
 	protected int xpos = random.nextInt(34);
 	protected int ypos = random.nextInt(23);
 	
-	protected AbstractGamePlay(User user){
+	protected AbstractGameplay(User user){
 		this.user = user;
 		generatePossiblePositions();
 	}

@@ -126,11 +126,7 @@ public class Stopwatch {
      * @return The total time elapsed
      */
     public long elapsed() {
-        if (isRunning()) {
-            if (isPaused())
-                return (pausedStart - start);
-            return (System.nanoTime() - start);
-        } else
-            return (int)((end - start)/1000000000.0);
+    	return isRunning() ? isPaused() ? (pausedStart - start) : 
+    		(System.nanoTime() - start) : (int)((end - start)/1000000000.0);
     }
 }

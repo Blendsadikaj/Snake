@@ -74,10 +74,14 @@ public class UserService extends AbstractUserService implements UserServiceInter
 		}   
 	}
 	
+	/**
+	 * findUser method is used to find
+	 * a user by username.
+	 */
 	public User findUser(String username) {
 		return showAllUsers().stream().
 				filter(o -> o.getUsername()
 				.equals(username))
-				.collect(Collectors.toList()).get(0);
+				.findFirst().get();
 	}
 }

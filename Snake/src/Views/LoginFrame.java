@@ -30,7 +30,6 @@ public class LoginFrame extends AbstractLoginFrame {
 		setBounds(10,10,400,300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		
 		lservice = new LoginService();
 	}
 	
@@ -100,10 +99,5 @@ public class LoginFrame extends AbstractLoginFrame {
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-	}
-
-	public static void main(String[] a) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException{
-		new Database();
-		LoginFrame frame=new LoginFrame();		
 	}
 }
